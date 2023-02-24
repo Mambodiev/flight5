@@ -1,0 +1,99 @@
+{% extends "pages/home_base.html" %}
+{% load static %}
+{% block content %}
+
+
+<div class="container px-6 py-16 mx-auto text-center">
+  {% for billet in billets %}
+  <div class="flex justify-center mb-6">
+    <div class="w-full p-6 rounded-xl lg:w-4/5 bg-slate-200 bg-opacity-50">
+      <div class="flex justify-between">
+        <p class="text-2xl font-semibold leading-tight">{{billet.depart }} - {{billet.destination }}</p>
+        <p class="text-xl font-semibold leading-tight">Tarif pour 1 passager</p>
+      </div>
+      <div class="relative overflow-x-auto">
+        <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+            <thead class="">
+                <tr>
+                    <th scope="col" class="px-6 py-3 capitalize text-lg">
+                      Départ de
+                    </th>
+                    <th scope="col" class="px-6 py-3 capitalize text-lg">
+                      Destination
+                    </th>
+                    <th scope="col" class="px-6 py-3 capitalize text-lg">
+                      Escale à
+                  </th>
+                    <th scope="col" class="px-6 py-3 capitalize text-lg">
+                      Date du vol
+                    </th>
+                    <th scope="col" class="px-6 py-3 capitalize text-lg">
+                      Heure du vol:
+                    </th>
+                    <th scope="col" class="px-6 py-3 capitalize text-lg">
+                      Réservez votre place
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="border-b">
+                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                              <h3 class="font-medium leading-tight text-xl ">{{billet.depart }}</h3>
+                    </th>
+                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                      <h3 class="font-medium leading-tight text-xl ">{{billet.destination }}</h3>
+                    </th>
+                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                      <h3 class="font-medium leading-tight text-gray-900 text-xl ">{{billet.escale }}</h3>
+                    </th>
+                    <td class="px-6 py-4">
+                      <h3 class="font-medium leading-tight text-gray-900 text-xl ">{{billet.date_du_vol|date:'d-M-Y' }}</h3>
+                    </td>
+                    <td class="px-6 py-4">
+                      <h3 class="font-medium leading-tight text-gray-900 text-xl ">{{billet.heure_du_vol }}</h3>
+                    </td>
+                    <td class="px-6 py-4">
+                        <h3 class="mb-6 font-medium leading-tight text-red-600	text-2xl font-semibold	">{{billet.places_restantes }} places restantes à ce tarif</h3>
+                        
+                        <div class="flex justify-end my-6 gap-6">
+                          <button class="px-5 py-4 text-base font-medium text-center text-white transition duration-500 ease-in-out transform bg-blue-600 lg:px-10 rounded-xl hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 text-lg focus:ring-blue-500">Je RéserveS Ma Place</button>
+                      </div>
+                    </td>
+                    
+                </tr>
+               
+            </tbody>
+        </table>
+        {% if request.user.is_staff %}
+        <div class="flex justify-end my-6 gap-6">
+
+          <a href="/add-billet/"   class="">
+            <button type="button" class="px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Créer un nouveau bille
+            </button>
+          </a>
+
+          <a href="/billets/{{ billet.id }}/edit/"   class="">
+            <button type="button" class="px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Modifier le billet
+            </button>
+          </a>
+
+
+          <a href="/listings/{{ listing.id }}delete/"  class="">
+            <button type="button" class="px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Effacé le billet
+            </button>
+          </a>
+
+        </div>
+      {% endif %}
+      </div>
+    </div> 
+  </div>
+  {% endfor %}
+</div>
+
+
+{% endblock content %}
+
+{% block javascript %}
+    
+{% endblock javascript %}
