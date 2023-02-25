@@ -13,7 +13,12 @@ console.log(`tailwindcss will scan ${contentPaths}`);
 module.exports = {
     content: contentPaths,
     theme: {
-        extend: {},
+        extend: {
+            colors: {
+                'mycolor': '#262262',
+              },
+              
+        },
     },
     plugins: [],
 }

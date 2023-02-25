@@ -10,7 +10,7 @@ def ticket_list(request):
     context = {
         "tickets": tickets
     }
-    return render(request, "ticket/tickets.html", context)
+    return render(request, "tickets.html", context)
 
 
 def ticket_retrieve(request, pk):
@@ -52,6 +52,8 @@ def ticket_update(request, pk):
 
 
 def ticket_delete(request, pk):
-    ticket = ticket.objects.get(id=pk)
+    ticket = Ticket.objects.get(id=pk)
     ticket.delete()
     return redirect("/")
+
+

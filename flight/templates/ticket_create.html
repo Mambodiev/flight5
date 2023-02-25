@@ -1,15 +1,16 @@
 {% extends "pages/base.html" %}
 {% load i18n %}
-{% block head_title %}{% trans "Set Password" %}{% endblock %}
-
+{% block head_title %}{% trans "Créer un nouveau billet" %}{% endblock %}
+{% load crispy_forms_tags %}
 
 {% block content %}
+
 <div class="flex items-center justify-center px-4 py-12 my-4 sm:px-6 lg:px-8">
-  <div class="w-full max-w-md space-y-8">
-    <h2 class="mt-6 text-2xl font-extrabold text-center text-gray-900">
-        {% trans "Set Password" %}
-    </h2>
-    <form class="mt-8 space-y-6" id="signup_form" method="post" action="{% url 'account_set_password' %}">
+    <div class="w-full max-w-md space-y-8">
+          <h2 class="mt-6 text-3xl font-extrabold text-center text-gray-900">
+              {% trans "Créer un nouveau billet" %}
+          </h2>
+      <form class="mt-8 space-y-6" method="post" enctype="multipart/form-data">
         {% csrf_token %}
   
         {{ form|crispy }}
@@ -27,31 +28,11 @@
                               clip-rule="evenodd"/>
                     </svg>
                 </span>
-                {% trans "Set Password" %}
+                {% trans "Créer" %}
             </button>
         </div>
       </form>
+    </div>
   </div>
-</div>
-{% endblock content %}
 
-
-
-
-
-
-{% comment %} {% extends "account/base.html" %}
-
-{% load i18n %}
-
-{% block head_title %}{% trans "Set Password" %}{% endblock %}
-
-{% block content %}
-    <h1>{% trans "Set Password" %}</h1>
-
-    <form method="POST" action="{% url 'account_set_password' %}" class="password_set">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <input type="submit" name="action" value="{% trans 'Set Password' %}"/>
-    </form>
-{% endblock %} {% endcomment %}
+{% endblock %}

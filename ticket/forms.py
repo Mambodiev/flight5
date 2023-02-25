@@ -1,20 +1,23 @@
-from django.forms import ModelForm
-from allauth.account.forms import SignupForm
+from django import forms
 from .models import Ticket
 
 
-class TicketForm(ModelForm):
+class TicketForm(forms.ModelForm):
     class Meta:
         model = Ticket
         fields = [
             "depart",
             "destination",
-            "escale",
             "date_du_vol",
             "heure_du_vol",
             "places_restantes",
             "prix_ticket",
         ]
+        widgets = {
+        'date_du_vol': forms.TextInput(attrs={'type': 'date'}),
+        'heure_du_vol': forms.TextInput(attrs={'type': 'Time'})
+
+        }
 
 
 

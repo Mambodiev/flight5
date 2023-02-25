@@ -1,12 +1,14 @@
+{% load i18n %}
 {% load static i18n %}
 
+<section class="h-screen bg-center bg-cover " style="background-image: url({% static 'vendors/images/bg_img/ituri.jpg' %});">
 
-
-<section class="h-screen bg-center bg-cover " style="background-image: url({% static 'vendors/images/bg_img/bg5.jpg' %}");">
     <nav x-data="{ isOpen: false }" class="container p-6 mx-auto lg:flex lg:justify-between lg:items-center">
         <div class="flex items-center justify-between">
             <div>
-                <a class="text-2xl font-bold text-white dark:text-white lg:text-3xl hover:text-blue-500 dark:hover:text-blue-500" href="/">Brand</a>
+                <a href="/">
+                    <img class="h-8 max-w-lg ml-auto" src="{% static 'vendors/images/logo/ituri_airline_logo.png' %}" alt="image description">
+                </a>
             </div>
 
             <!-- Mobile menu button -->
@@ -27,26 +29,32 @@
                 <a class="text-white transition-colors duration-300 transform lg:mx-8 dark:text-white dark:hover:text-blue-400 hover:text-blue-500 text-lg font-normal " href="#">Nous-Contactez</a>
             </div>
 
-            <a class="block px-6 py-2.5 mt-4 font-normal text-lg leading-5 text-center text-white capitalize bg-blue-600 rounded-lg lg:mt-0 hover:bg-blue-500 lg:w-auto" href="{% url 'account_login' %}">
-                 Se connecter
-            </a>
+            <a class="block px-6 py-2.5 mt-4 font-normal text-lg leading-5 text-center text-white capitalize bg-mycolor rounded-lg lg:mt-0 hover:bg-mycolor lg:w-auto" href="{% url 'account_login' %}">
+                Se connecter
+           </a>
         </div>
     </nav>
 
-    {% comment %} <div class="container px-6 py-16 mx-auto text-center">
+    <div class="container px-6 py-16 mx-auto text-center">
         <div class="max-w-lg mx-auto">
-            <h1 class="text-3xl font-bold text capitalize text-white dark:text-white lg:text-4xl">réservez votre billet depuis chez vous</h1>
+            <h1 class="text-2xl font-bold text capitalize text-white dark:text-white lg:text-4xl">réservez votre billet depuis chez vous</h1>
         </div>
-    
-        <div class="flex justify-center mt-10">
-            <div class="bg-slate-200 bg-opacity-50 object-cover p-6  w-full rounded-xl lg:w-4/5">
-                <h2 class="text-xl px-6 font-semibold text-white capitalize">Reserver un billet</h2>
+        <div class="flex justify-center">
+            <div class="lg:w-4/5">
+                <div class="flex justify-start lg:w-4/5">           
+                    <p class="px-5 py-4 font-semibold text-xl leading-5 text-center text-white bg-slate-900 bg-opacity-30  lg:px-10 hover:bg-slate-200 text-lg">Réservez un billet</p>
+                </div>
+            </div>
+        </div>
+        <div class="flex justify-center">
+            <div class="bg-slate-900 bg-opacity-30 object-cover p-6  w-full lg:w-4/5">
+                
                     <form>                       
                         <div class="grid w-full grid-cols-1 gap-6 mx-auto lg:grid-cols-3">
                             <div>
-                                <label for="Birthday" class="block text-lg text-white font-medium">Départ de *</label>
+                                <label for="Birthday" class="block text-lg text-white font-semibold">Départ de *</label>
                                 <select class="mt-2 form-select appearance-none
-                                lock  mt-2 w-full placeholder-gray-400/70 placeholder-white rounded-lg border border-gray-200 bg-white px-5 py-2.5 text-gray-700 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40 border-gray-600 bg-gray-900 text-gray-300 focus:border-blue-300" aria-label="Default select example">
+                                lock  mt-2 w-full placeholder-gray-400/70 placeholder-white rounded-lg border border-white bg-slate-200 bg-opacity-20 px-5 py-2.5 text-white focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40 border-gray-600 bg-gray-900 text-gray-300 focus:border-blue-300" aria-label="Default select example">
                                     <option class='mr-2 ' selected>Ville de départ</option>
                                     <option value="1">Bunia</option>
                                     <option value="2">Aru</option>
@@ -54,10 +62,10 @@
                                 </select>
                             </div>
                             <div>
-                                <label for="Birthday" class="block text-lg text-white font-medium">Arrivée à *</label>
+                                <label for="Birthday" class="block text-lg text-white font-semibold">Arrivée à *</label>
         
                                 <select class="mt-2 form-select appearance-none
-                                lock  mt-2 w-full placeholder-gray-400/70 placeholder-gray-500 rounded-lg border border-gray-200 bg-white px-5 py-2.5 text-gray-700 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40 border-gray-600 bg-gray-900 text-gray-300 focus:border-blue-300" aria-label="Default select example">
+                                lock  mt-2 w-full placeholder-gray-400/70 placeholder-gray-500 rounded-lg border border-white bg-slate-200 bg-opacity-20 px-5 py-2.5 text-white focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40 border-gray-600 bg-gray-900 text-gray-300 focus:border-blue-300" aria-label="Default select example">
                                     <option class='mr-2' selected>Ville d'arrivée</option>
                                     <option value="1">Bunia</option>
                                     <option value="2">Aru</option>
@@ -65,20 +73,20 @@
                                 </select>
                             </div>
                             <div>
-                                <label for="Birthday" class="block text-lg text-white font-medium">Date de voyage</label>
+                                <label for="Birthday" class="block text-lg text-white font-semibold">Date de voyage</label>
                         
-                                <input type="date" placeholder="John Doe" class="block  mt-2 w-full placeholder-gray-400/70 placeholder-gray-500 rounded-lg border border-gray-200 bg-white px-5 py-2.5 text-gray-700 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40 border-gray-600 bg-gray-900 text-gray-300 focus:border-blue-300" />
+                                <input type="date" placeholder="John Doe" class="block  mt-2 w-full placeholder-gray-400/70 placeholder-gray-500 rounded-lg border border-white bg-slate-200 bg-opacity-20 px-5 py-2.5 text-white focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40 border-gray-600 bg-gray-900 text-gray-300 focus:border-blue-300" />
                         </div>
                         </div>                        
                         
                         <div class="flex justify-end my-6 gap-6">
                            
-                            <button class="px-5 py-4 text-base font-medium text-center text-white transition duration-500 ease-in-out transform bg-blue-600 lg:px-10 rounded-xl hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 text-lg focus:ring-blue-500">Rechercher le vol</button>
+                            <button class="px-5 py-4 text-base font-medium text-center text-white transition duration-500 ease-in-out transform bg-mycolor lg:px-10 rounded-xl hover:bg-blue-900 focus:outline-none focus:ring-2 focus:ring-offset-2 text-lg focus:ring-blue-500">Rechercher le vols</button>
                         </div>
                     </form>
             </div>
         </div>
-    </div> {% endcomment %}
+    </div>
 </section>
 <script>
     const btn = document.querySelector("button.mobile-menu-button");
