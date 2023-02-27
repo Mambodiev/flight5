@@ -1,6 +1,6 @@
 git init
 git add .
-git commit -m "done with ticket detail page"
+git commit -m "git ignore added"
 git push
 
 
