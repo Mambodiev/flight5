@@ -1,8 +1,10 @@
 {% extends "pages/base.html" %}
 {% load i18n %}
+{% load crispy_forms_tags %}
+{% load static %}
 {% block head_title %}{% trans "Ituri Airline" %}{% endblock %}
 
-{% load static %}
+
 {% block content %}
 
 
@@ -56,11 +58,13 @@
                
             </tbody>
         </table>
-        <a href="/tickets/{{ ticket.id }}/"
-                class="relative flex justify-center w-full px-4 py-2 text-md font-medium text-white bg-mycolor border border-transparent border-solid rounded-md group hover:bg-mycolor focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-mycolor">
-            
+        <form method='POST' >
+          {% csrf_token %}
+          {{ form|crispy }}
+        <button type='submit'
+                class="relative flex justify-center w-full px-4 py-2 text-md font-medium text-white bg-mycolor border border-transparent border-solid rounded-md group hover:bg-mycolor focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-mycolor">           
             {% trans "Je réserves ma place" %}
-        </a>
+        </button type='submit'>
                         
         {% if request.user.is_staff %}
         <div class="flex justify-end my-6 gap-6">

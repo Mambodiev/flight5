@@ -1,8 +1,7 @@
 from django import forms
 from django.utils.translation import gettext_lazy as _
 
-from .models import Ticket
-
+from .models import Ticket, OrderItem
 
 class TicketForm(forms.ModelForm):
     class Meta:
@@ -36,3 +35,7 @@ class ContactForm(forms.Form):
     }), label=_('Message'))
 
 
+class AddToCartForm(forms.ModelForm):
+    class Meta:
+        model =OrderItem
+        fields = ['quantity']

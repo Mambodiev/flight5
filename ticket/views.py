@@ -4,11 +4,13 @@ from django.contrib import messages
 from django.shortcuts import reverse
 from django.core.mail import send_mail
 from django.utils.translation import gettext as _
+from .utils import get_or_set_order_session
+from django.shortcuts import get_object_or_404, reverse, redirect, render
 
 from .models import Ticket
 from .forms import TicketForm
 from django.views import generic
-from .forms import ContactForm
+from .forms import ContactForm, AddToCartForm
 # CRUD - create, retrieve, update, delete, list
 
 
@@ -24,8 +26,40 @@ class TicketListView(generic.ListView):
 #     template_name = 'ticket/ticket_detail.html'
 #     model = Ticket
 
-class TicketDetailView(generic.DetailView):
+class TicketDetailView(generic.FormView):
+    template_name = 'ticket/ticket_detail.html'
     model = Ticket
+    form_class = AddToCartForm
+
+    def get_object(self):
+        return get_object_or_404(Ticket, pk=self.kwargs["pk"])
+
+    def get_success_url(self):
+            return reverse("ticket:ticket-list")
+    
+    def form_valid(self, form):
+        order = get_or_set_order_session(self.request)
+        ticket = self.get_object()
+
+        item_filter = order.items.filter(ticket=ticket)
+
+        if item_filter.exists():
+            item = item_filter.first()
+            item.quantity += int(form.cleaned_data['quantity'])
+            item.save()
+
+        else:
+            new_item = form.save(commit=False)
+            new_item.ticket = ticket
+            new_item.order = order
+            new_item.save()
+
+        return super(TicketDetailView, self).form_valid(form)
+    
+    def get_context_data(self, **kwargs):
+        context = super(TicketDetailView, self).get_context_data(**kwargs)
+        context['ticket'] = self.get_object()
+        return context
 
 
 class HomeView(generic.TemplateView):
