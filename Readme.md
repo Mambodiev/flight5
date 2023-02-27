@@ -1,7 +1,7 @@
 git init
 git add .
 git commit -m "git ignore added"
-git push
+git push -f
 
 
 pip install -r requirements.txt 
