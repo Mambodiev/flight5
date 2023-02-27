@@ -1,6 +1,11 @@
 import os
-
+import environ
+env = environ.Env()
+environ.Env.read_env()
 from pathlib import Path
+
+SECRET_KEY = env('SECRET_KEY')
+
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -33,6 +38,9 @@ INSTALLED_APPS = [
 
     "ticket",
 ]
+
+NOTIFY_EMAIL = env('NOTIFY_EMAIL')
+DEFAULT_FROM_EMAIL = env('DEFAULT_FROM_EMAIL')
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

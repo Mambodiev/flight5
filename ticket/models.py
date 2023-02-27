@@ -1,5 +1,6 @@
 from django.db import models
 from datetime import datetime    
+from django.shortcuts import reverse
 
 # Create your models here.
 
@@ -14,4 +15,11 @@ class Ticket(models.Model):
  
 
     def __str__(self):
-        return self.destination
+        return self.depart
+    
+
+    def get_absolute_url(self):
+        return reverse("ticket:ticket-detail", kwargs={'pk': self.pk})
+    
+    # def get_absolute_url(self):
+    #     return reverse('ticket-detail', args=[str(self.id)])

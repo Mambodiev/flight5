@@ -1,10 +1,11 @@
 git init
 git add .
-git commit -m "first commit flight5 after  Setup Tailwind CSS according to Yin blog_How to Setup Tailwind CSS with Django (Part 2)"
+git commit -m "done with ticket detail page"
 git push
 
 
 pip install -r requirements.txt 
+pip freeze > requirements.txt
 
 
 source env/bin/activate
