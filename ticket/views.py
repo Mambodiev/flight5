@@ -45,7 +45,7 @@ class TicketDetailView(generic.FormView):
 
         if item_filter.exists():
             item = item_filter.first()
-            item.quantity += int(form.cleaned_data['quantity'])
+            item.quantity = int(form.cleaned_data['quantity'])
             item.save()
 
         else:
@@ -101,6 +101,17 @@ class ContactView(generic.FormView):
             recipient_list=[settings.NOTIFY_EMAIL]
         )
         return super(ContactView, self).form_valid(form)
+
+
+
+class TicketView(generic.TemplateView):
+    template_name = "ticket/ticket_view.html"
+
+    def get_context_data(self, **kwargs):
+        context = super(TicketView, self).get_context_data(**kwargs)
+        context["order"] = get_or_set_order_session(self.request)
+        return context
+
 
 
 

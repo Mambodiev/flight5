@@ -23,7 +23,7 @@
         <div x-cloak :class="[isOpen ? 'translate-x-0 opacity-100 ' : 'opacity-0 -translate-x-full']" class="absolute inset-x-0 w-full px-6 py-4 transition-all duration-300 ease-in-out bg-white shadow-md lg:bg-transparent lg:dark:bg-transparent lg:shadow-none  lg:mt-0 lg:p-0 lg:top-0 lg:relative lg:w-auto lg:opacity-100 lg:translate-x-0 lg:flex lg:items-center mobile-menu hidden ">
             <div class="flex flex-col space-y-4 lg:mt-0 lg:flex-row lg:-px-8 lg:space-y-0">
                 <a class="transition-colors duration-300 transform lg:mx-8  dark:hover:text-blue-400 hover:text-blue-500 text-lg font-normal "  href="{% url 'ticket:ticket-list' %}">Nos Programes</a>
-                <a class="transition-colors duration-300 transform lg:mx-8  dark:hover:text-blue-400 hover:text-blue-500 text-lg font-normal " href="#">Réservations</a>
+                <a class="transition-colors duration-300 transform lg:mx-8  dark:hover:text-blue-400 hover:text-blue-500 text-lg font-normal " href="{% url 'ticket:summary' %}">Ma Réservation</a>
                 <a class="transition-colors duration-300 transform lg:mx-8  dark:hover:text-blue-400 hover:text-blue-500 text-lg font-normal " 
                 href="{% url 'ticket:contact' %}">Nous-Contactez</a>
             </div>
@@ -60,7 +60,7 @@
                 <li class="">
                     <a
                     class="bg-gray-200 hover:bg-mycolor hover:text-white py-2 px-4 block whitespace-no-wrap"
-                    href="#"
+                    href="{% url 'ticket:summary' %}"
                     >Mon ticket</a
                     >
                 </li>
@@ -82,7 +82,7 @@
             <button class="items-center block px-10 py-2.5 text-base font-medium text-center text-gray-900 transition duration-500 ease-in-out transform border-2 border-white shadow-md rounded-xl focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">Se connecter</button></a>
             <a href="{% url 'account_signup' %}">
             <button class="items-center block px-10 py-3 text-base font-medium text-center text-white transition duration-500 ease-in-out transform bg-mycolor rounded-xl hover:bg-mycolor focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-mycolor">Créer mon compte</button></a>
-        </div>
+          </div>
           {% endif %}
         </div>
     </nav>

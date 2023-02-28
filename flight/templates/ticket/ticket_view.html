@@ -7,87 +7,81 @@
 
 
 <div class="container px-6 py-16 mx-auto text-center mt-10">
-  {% for ticket in object_list %}
-  <div class="flex justify-center mb-6">
-    <div class="w-full p-6 rounded-xl lg:w-4/5 border-2 border-mycolor hover:border-rose-500">
-      <div class="flex justify-between">
-        <p class="text-2xl">{{ticket.depart|title }} - {{ticket.destination|title }}</p>
-        <p class="text-xl">Tarif pour 1 passager</p>
-      </div>
-      <div class="relative overflow-x-auto">
-        <table class="w-full text-sm">
-            <thead class="">
-                <tr>
-                    <th scope="col" class="px-4 py-2 capitalize">
-                      Départ de
-                    </th>
-                    <th scope="col" class="px-4 py-2 capitalize">
-                      Destination
-                    </th>
-                    <th scope="col" class="px-4 py-2 capitalize">
-                      Date du vol
-                    </th>
-                    <th scope="col" class="px-4 py-2 capitalize">
-                      Heure du vol:
-                    </th>
-                    <th scope="col" class="px-4 py-2 capitalize">
-                      Réservez votre place
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr class="border-b">
-                    <th scope="row" class="px-3 py-2 ">
-                      <p class="text-sm ">{{ticket.depart|title }}</p>
-                    </th>
-                    <th scope="row" class="px-3 py-2 ">
-                      <p class="text-sm ">{{ticket.destination|title }}</p>
-                    </th>
-                    <td class="px-3 py-2 capitalize">
-                      <p class="text-sm ">{{ticket.date_du_vol|date:'d-M-Y' }}</p>
-                    </td>
-                    <td class="px-3 py-2">
-                      <p class="textsm ">{{ticket.heure_du_vol }}</p>
-                    </td>
-                    <td class="px-3 py-2 capitalize">
-                        <p class="mb-6  text-red-600	text-base font-semibold	">{{ticket.places_restantes }} places restantes à ce tarif</p>
-                    </td>
-                    
-                </tr>
-               
-            </tbody>
-        </table>
-        <a href="{{ ticket.get_absolute_url }}"
-                class="relative flex justify-center w-full px-4 py-2 text-md font-medium text-white bg-mycolor border border-transparent border-solid rounded-md group hover:bg-mycolor focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-mycolor">
-            
-            {% trans "Continuer" %}
-        </a>
+    <div class="flex justify-center mb-6">
+        <div class="w-full p-6 rounded-xl lg:w-4/5 border-2 border-mycolor hover:border-rose-500">
+        <div class="relative overflow-x-auto">
+            <table class="w-full text-sm">
+                <thead class="">
+                    <tr>
+                        <th scope="col" class="px-4 py-2 capitalize">
+                        Départ & Destination
+                        </th>
+                        <th scope="col" class="px-4 py-2 capitalize">
+                        Date & Heure du vol
+                        </th>
+                        <th scope="col" class="px-4 py-2 capitalize">
+                          Prix du Ticket
+                          </th>
+                        <th scope="col" class="px-4 py-2 capitalize">
+                         Total
+                        </th>
+                        <th scope="col" class="px-4 py-2 capitalize">
+                          Action
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in order.items.all %}
+                    <tr class="">
+                        <th scope="row" class="px-3 py-2 ">
+                        <p class="text-sm ">{{item.ticket.depart }}-{{item.ticket.destination }}</p>
+                        </th>
+                        <td class="px-3 py-2 capitalize">
+                        <p class="text-sm ">{{item.ticket.date_du_vol|date:'d-M-Y' }}</p>
+                        <p class="text-sm ">{{item.ticket.heure_du_vol }}</p>
+                        </td>
                         
-        {% if request.user.is_staff %}
-        <div class="flex justify-end my-6 gap-6">
+                        <td class="px-3 py-2">                         
+                             <div class="flex justify-center ...">
+                              <div class='mr-2'>
+                                <div class="flex justify-center">
+                                  <div class='p-2 border hover:bg-mycolor hover:text-white'>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dash" viewBox="0 0 16 16">
+                                      <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z"/>
+                                    </svg>
+                                  </div>
+                                  <div class='py-2 px-3 border-y'>{{ item.quantity }}</div>
+                                  <div class='p-2 border hover:bg-mycolor hover:text-white'>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
+                                      <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                                    </svg>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class='mr-2 mt-2'> x </div>
+                              <div class='mt-2'> $ {{ item.ticket.prix_ticket }}</div>
+                            </div>
+                          </td>
+                        <td class="px-3 py-2 capitalize">
+                          <p class="text-sm ">$ 0</p>
+                        </td>
+                        <td class="px-3 py-2 capitalize">
+                        <button type="button" class="text-red-700 hover:text-white border border-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-900">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
+                            <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"/>
+                          </svg>
+                        </button>
 
-          <a href="/add-ticket/"   class="">
-            <button type="button" class="px-3 py-2 text-sm font-medium text-center text-white bg-mycolor rounded-lg hover:bg-mycolor focus:ring-4 focus:outline-none focus:ring-mycolor dark:bg-mycolor dark:hover:bg-mycolor dark:focus:ring-mycolor">Créer un nouveau bille
-            </button>
-          </a>
-
-          <a href="/tickets/{{ ticket.id }}/edit/"   class="">
-            <button type="button" class="px-3 py-2 text-sm font-medium text-center text-white bg-mycolor rounded-lg hover:bg-mycolor focus:ring-4 focus:outline-none focus:ring-mycolor dark:bg-mycolor dark:hover:bg-mycolor dark:focus:ring-mycolor">Modifier le billet
-            </button>
-          </a>
-
-
-          <a  href="/tickets/{{ ticket.id }}/delete/"  class="">
-            <button type="button" class="px-3 py-2 text-sm font-medium text-center text-white bg-red-600 rounded-lg hover:bg-red-600 focus:ring-4 focus:outline-none focus:ring-red-600 dark:bg-red-600 dark:hover:bg-red-600 dark:focus:ring-red-600">Effacé le billet
-            </button>
-          </a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+                    
 
         </div>
-      {% endif %}
-      </div>
-    </div> 
-  </div>
-  {% endfor %}
+        </div> 
+    </div>
 </div>
 
 
