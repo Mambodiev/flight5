@@ -16,5 +16,5 @@ python3 manage.py migrate
 
 git init
 git add .
-git commit -m "done styling sumary ticket"
+git commit -m "partially done with checkout"
 git push -f

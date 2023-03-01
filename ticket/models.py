@@ -10,12 +10,33 @@ User = get_user_model()
 
 
 class Ticket(models.Model):
-    depart = models.CharField(max_length=150)
-    destination = models.CharField(max_length=150)
-    date_du_vol = models.DateTimeField(default=datetime.now,blank=True)
+
+    VILLE_DE_DEPART = (
+        ('Bunia', 'Bunia'),
+        ('Kisangani', 'Kisangani'),
+        ('Aru', 'Aru'),
+        ('Mahagi', 'Mahagi'),
+        ('Beni', 'Beni'),
+         ('Goma', 'Goma'),
+    )
+
+
+    VILLE_DE_ARRIVEE = (  
+        ('Bunia', 'Bunia'),
+        ('Kisangani', 'Kisangani'),
+        ('Aru', 'Aru'),
+        ('Mahagi', 'Mahagi'),
+        ('Beni', 'Beni'),
+         ('Goma', 'Goma'),
+    )
+
+
+    depart = models.CharField(max_length=150, choices=VILLE_DE_DEPART, default='New')
+    destination = models.CharField(max_length=150, choices=VILLE_DE_ARRIVEE, default='New')
+    date_du_vol = models.DateTimeField(default=datetime.now, blank=True,  null=True )
     heure_du_vol = models.TimeField(auto_now=False, auto_now_add=False)
     places_restantes  = models.IntegerField()
-    prix_ticket  = models.IntegerField()
+    prix_ticket  = models.IntegerField(default=0)
  
 
     def __str__(self):
@@ -28,6 +49,9 @@ class Ticket(models.Model):
     # def get_absolute_url(self):
     #     return reverse('ticket-detail', args=[str(self.id)])
 
+    def get_price(self):
+        return "{:.2f}".format(self.prix_ticket / 100)
+
 
 
 class OrderItem(models.Model):
@@ -39,6 +63,13 @@ class OrderItem(models.Model):
 
     def __str__(self):
         return f"{self.quantity} x {self.ticket.depart}"
+    
+    def get_raw_total_item_price(self):
+        return self.quantity * self.ticket.prix_ticket
+
+    def get_total_item_price(self):
+        price = self.get_raw_total_item_price()  # 1000
+        return "{:.2f}".format(price / 100)
     
 
 
@@ -56,4 +87,24 @@ class Order(models.Model):
     @property
     def reference_number(self):
         return f"ORDER-{self.pk}"
+    
+    def get_raw_subtotal(self):
+        total = 0
+        for order_item in self.items.all():
+            total += order_item.get_raw_total_item_price()
+        return total
+    
+    def get_subtotal(self):
+        subtotal = self.get_raw_subtotal()
+        return "{:.2f}".format(subtotal / 100)
+
+    def get_raw_total(self):
+        subtotal = self.get_raw_subtotal()
+        # add tax, add delivery, subtract discounts
+        # total = subtotal - discounts + tax + delivery
+        return subtotal
+
+    def get_total(self):
+        total = self.get_raw_total()
+        return "{:.2f}".format(total / 100)
 

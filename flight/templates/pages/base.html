@@ -9,14 +9,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{% block head_title %}Ituri Airline{% endblock %}</title>
 
-  {% comment %} {% stylesheet_pack 'index' %}
-  {% javascript_pack 'index' attrs='defer' %} {% endcomment %}
+  <link rel="icon"
+        href="{% static 'vendors/images/ico/ituri airline.ico' %}">
   {% stylesheet_pack 'app' %}
   {% block css %}
   <style>
   </style>
    {% endblock %}
 </head>
+
 <body>
   {% include 'pages/navbar.html' %}
 
@@ -46,5 +47,7 @@
   {% block content %}
   {% endblock %}
   {% include 'pages/footer.html' %}
+  {% block javascript %}
+  {% endblock javascript %}
 </body>
 </html>
