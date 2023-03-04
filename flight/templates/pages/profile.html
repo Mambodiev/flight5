@@ -1,0 +1,82 @@
+{% extends "pages/base.html" %}
+{% load i18n %}
+{% block head_title %}{% trans "Votre Profile" %}{% endblock %}
+
+{% load static %}
+{% block content %}
+
+
+
+<div class="container px-6 mx-auto mt-10">
+        <div class="w-full p-6 rounded-xl mx-auto lg:w-4/5 text-center ">
+            <h2 class="text-2xl font-extraboldtext-gray-900">
+                {% trans "Votre Profile" %}
+              </h2>
+              <a href="{{ signup_url }}" class="text-mycolor">{{ request.user.email }}</a>
+        </div>
+        <div class="flex flex-col">
+            <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
+              <div class="inline-block min-w-full py-2 sm:px-6 lg:px-8">
+                <div class="overflow-hidden">
+                  <table class="min-w-full text-center">
+                    <thead class="border-b">
+                      <tr>
+                        <th
+                          scope="col"
+                          class="px-6 py-4 text-sm font-medium text-neutral-900">
+                          No.de Reference
+                        </th>
+                        <th
+                          scope="col"
+                          class="px-6 py-4 text-sm font-medium text-neutral-900">
+                          Date
+                        </th>
+                        <th
+                          scope="col"
+                          class="px-6 py-4 text-sm font-medium text-neutral-900">
+                          Status
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {% for order in orders %}
+                        <tr class="border-b">
+                            <td
+                            class="whitespace-nowrap px-6 py-4 text-sm font-medium text-neutral-900">
+                            <a href="{% url 'ticket:order-detail' order.pk %}">
+                                {{  order.reference_number }}
+                            </a>
+                            </td>
+                            <td
+                            class="whitespace-nowrap px-6 py-4 text-sm font-light text-neutral-900">
+                            {{ order.ordered_date }}
+                            </td>
+                            <td
+                            class="whitespace-nowrap px-6 py-4 text-sm font-light text-neutral-900">
+                            {% if order.ordered %}Payer{% else %}No Payer{% endif %}
+                            </td>
+                        </tr>
+                        {% empty %}
+                           
+                                <p class="text-center py-10">
+                                    Vous n'avez pas encore reservé un billet. Si vous prévoyez de voyager,
+                                    <a class='bg-mycolor rounded-xl hover:bg-mycolor px-10 py-3 text-base font-medium text-center text-white' href="/">
+                                        {% trans "Veillez Reserver un" %}
+                                    </a> 
+                                </p>
+                      {% endfor %}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+        </div>
+</div>
+
+
+{% endblock content %}
+
+{% block javascript %}
+  <script src="{% static 'vendors/js/flowbite.min.js' %}"></script>
+
+{% endblock javascript %}
